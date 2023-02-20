@@ -13,7 +13,7 @@ class Post extends Model
        'name', 'content'
     ];
 
-    public function communities () {
+    public function community () {
         return $this->belongsTo(Community::Class);
     }
 
@@ -22,7 +22,7 @@ class Post extends Model
         return $this->hasMany(Comment::Class);
     }
 
-    public function users() {
+    public function user () {
         return $this->belongsTo(User::Class);
     }
 }

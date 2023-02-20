@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use http\Env\Response;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Spatie\FlareClient\Http\Exceptions\NotFound;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -36,6 +39,12 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+
+        $this->renderable(function (NotFoundHttpException $error, $request){
+           if ($request->is('api/*')){
+               return response()->json(['message'=>'No lo he encontrado'], 404);
+           }
         });
     }
 }
